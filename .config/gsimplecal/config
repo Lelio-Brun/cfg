@@ -1,0 +1,3 @@
+mainwindow_yoffset = 30
+mainwindow_xoffset = -30
+external_viewer = chromium "https://calendar.google.com/calendar/render?tab=mc&date=%Y%m%d"
