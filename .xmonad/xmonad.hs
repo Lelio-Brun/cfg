@@ -117,13 +117,13 @@ myKeys =
     ("M-e", spawn "emacs"),
     ("M-x", spawn "emacs /home/lelio/.xmonad/xmonad.hs"),
     ("M-c", spawn "chromium"),
-    ("M-t", sendMessage ToggleStruts),
+    ("M-r", sendMessage ToggleStruts),
     ("M-s", sendMessage MirrorShrink),
     ("M-z", sendMessage MirrorExpand)
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],
-       (f, m) <- [(viewScreen, ""), (sendToScreen, "S-")]]
+       (f, m) <- [(viewScreen def, ""), (sendToScreen def, "S-")]]
   where
     amixer c = spawn $ "amixer -M set Master " ++ c
     ocaml_script s = spawn $ "ocaml ~/.scripts/" ++ s
