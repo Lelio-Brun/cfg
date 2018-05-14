@@ -1,7 +1,7 @@
 include /usr/share/nano-syntax-highlighting/*.nanorc
 
 set linenumbers
-set numbercolor brightyellow,
+set numbercolor brightyellow
 set morespace
 set mouse
 set smooth
