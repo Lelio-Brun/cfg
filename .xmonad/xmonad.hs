@@ -78,9 +78,9 @@ myLogHook hs = do
       } >> updatePointer (0.9, 0.9) (0, 0)
       where
         layout =
-          replace "SmartSpacing 2 ResizableTall" "<fn=2>◧</fn>" .
-          replace "SmartSpacing 2 Mirror ResizableTall" "<fn=2>⬒</fn>" .
-          replace "SmartSpacing 2 Full" "<fn=2>■</fn>"
+          replace "Spacing ResizableTall" "<fn=2>◧</fn>" .
+          replace "Spacing Mirror ResizableTall" "<fn=2>⬒</fn>" .
+          replace "Spacing Full" "<fn=2>■</fn>"
         replace old new =
           intercalate new . splitOn old
         setLog cs s =

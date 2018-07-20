@@ -1,10 +1,15 @@
-resolver: lts-11.7
+resolver: lts-12.1
 
 packages:
 - iwlib-git
 - xmobar-git
 - xmonad-git
 - xmonad-contrib-git
+
+extra-deps:
+- X11-1.8
+- alsa-mixer-0.2.0.3
+- parsec-numbers-0.1.0
 
 flags:
   xmobar:
