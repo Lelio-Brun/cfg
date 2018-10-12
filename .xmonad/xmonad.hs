@@ -53,7 +53,9 @@ myManageHook = composeAll [
 
 myLayoutHook =
   smartSpacing 2 . smartBorders . avoidStruts $
-  tall ||| Mirror tall ||| Full
+  tall |||
+  -- Mirror tall |||
+  Full
   where
     tall = ResizableTall 1 (2/100) (1/2) []
 
@@ -79,7 +81,7 @@ myLogHook hs = do
       where
         layout =
           replace "Spacing ResizableTall" "<fn=2>◧</fn>" .
-          replace "Spacing Mirror ResizableTall" "<fn=2>⬒</fn>" .
+          -- replace "Spacing Mirror ResizableTall" "<fn=2>⬒</fn>" .
           replace "Spacing Full" "<fn=2>■</fn>"
         replace old new =
           intercalate new . splitOn old
