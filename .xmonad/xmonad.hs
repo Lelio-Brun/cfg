@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -5,13 +7,13 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
-import XMonad.Layout.NoBorders(smartBorders)
-import XMonad.Layout.Spacing(smartSpacing)
+import XMonad.Layout.Spacing
 import XMonad.Layout.IndependentScreens(countScreens)
 import XMonad.Layout.ResizableTile
 import XMonad.Actions.PhysicalScreens
 import XMonad.Config.Azerty
 import XMonad.Actions.UpdatePointer
+import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as SS
 
 import System.IO
@@ -43,6 +45,7 @@ myManageHook = composeAll [
   (isFullscreen --> doFullFloat),
   (isDialog --> doFloatDep maxrect),
   (className =? "Pavucontrol" --> rect 0.5 0.025 0.5 0.5),
+  (className =? "Guake" --> doFloat),
   manageHook myDefaultConfig
   ]
   where
@@ -52,16 +55,15 @@ myManageHook = composeAll [
       SS.RationalRect x y (min w 0.5) (min h 0.5)
 
 myLayoutHook =
-  smartSpacing 2 . smartBorders . avoidStruts $
-  tall |||
-  -- Mirror tall |||
-  Full
+  avoidStruts $
+  spacingRaw True (Border 0 0 0 0) False (Border 2 0 1 1) True $
+  tall ||| Full
   where
     tall = ResizableTall 1 (2/100) (1/2) []
 
 myHandleEventHook = fullscreenEventHook <+> handleEventHook myDefaultConfig
 
-myStartupHook = startupHook myDefaultConfig
+myStartupHook = spawnOnce "guake --hide" <+> startupHook myDefaultConfig
 
 myLogHook hs = do
     S cs <- currentScreen
@@ -98,8 +100,8 @@ myLogHook hs = do
 
 myKeys =
   [
-    ("<XF86AudioRaiseVolume>", amixer "2%+"),
-    ("<XF86AudioLowerVolume>", amixer "2%-"),
+    ("<XF86AudioRaiseVolume>", amixer "5%+"),
+    ("<XF86AudioLowerVolume>", amixer "5%-"),
     ("<XF86AudioMute>", amixer "toggle"),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
@@ -118,7 +120,7 @@ myKeys =
     ("M-S-l", spawn "loginctl lock-session"),
     ("M-e", spawn "emacs"),
     ("M-x", spawn "emacs /home/lelio/.xmonad/xmonad.hs"),
-    ("M-c", spawn "chromium"),
+    ("M-b", spawn "firefox"),
     ("M-r", sendMessage ToggleStruts),
     ("M-s", sendMessage MirrorShrink),
     ("M-z", sendMessage MirrorExpand)

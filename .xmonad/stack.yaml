@@ -1,4 +1,4 @@
-resolver: lts-12.10
+resolver: lts-13.4
 
 packages:
 - iwlib-git
@@ -7,8 +7,8 @@ packages:
 - xmonad-contrib-git
 
 extra-deps:
-- X11-1.8
-- alsa-mixer-0.2.0.3
+- X11-1.9
+- alsa-mixer-0.3.0
 - parsec-numbers-0.1.0
 
 flags:
