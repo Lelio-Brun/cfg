@@ -11,7 +11,7 @@ Config
     template = "%StdinReader%\
                \}{\
                \%mpc% | \
-               \<action=pavucontrol>%default:Master%</action> | \
+               \<action=pavucontrol>%alsa:default:Master%</action> | \
                \%bright% | \
                \<action=networkmanager_dmenu>%wlp2s0wi%</action> | \
                \%date% | \
@@ -21,7 +21,7 @@ Config
         Run StdinReader,
         Run Com "ocaml" ["/home/lelio/.scripts/mpc.ml"] "mpc" 30,
         Run Date "<fc=goldenrod><action=gsimplecal>%T</action></fc>" "date" 10,
-        Run Volume "default" "Master" [
+        Run Alsa "default" "Master" [
           "--template", "<status> <volume>",
           "--ppad", "3",
           "--suffix", "False",
@@ -30,7 +30,7 @@ Config
           "--off", "<fn=1></fn>",
           "--onc", "grey",
           "--offc", "darkred"
-          ] 10,
+          ],
         Run Brightness [
           "--template", "<fn=1></fn> <percent>",
           "--ppad", "3",

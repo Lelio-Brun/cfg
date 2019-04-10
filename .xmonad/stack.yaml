@@ -1,4 +1,4 @@
-resolver: lts-13.4
+resolver: lts-13.16
 
 packages:
 - iwlib-git

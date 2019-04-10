@@ -1,3 +1,18 @@
 [user]
 	email = lelio.brun@gmail.com
 	name = Lélio Brun
+
+# https://stackoverflow.com/a/34119867
+
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+
+[merge]
+    tool = meld
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!) explained below.
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"

@@ -100,8 +100,8 @@ myLogHook hs = do
 
 myKeys =
   [
-    ("<XF86AudioRaiseVolume>", amixer "5%+"),
-    ("<XF86AudioLowerVolume>", amixer "5%-"),
+    ("<XF86AudioRaiseVolume>", amixer "2%+"),
+    ("<XF86AudioLowerVolume>", amixer "2%-"),
     ("<XF86AudioMute>", amixer "toggle"),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
