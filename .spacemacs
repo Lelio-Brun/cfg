@@ -336,6 +336,7 @@ If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
                 (prettify-symbols-mode))))
   (setq tuareg-prettify-symbols-full t)
   (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+  (add-hook 'LaTeX-mode-hook 'flycheck-mode)
   (spacemacs/toggle-vi-tilde-fringe-off)
   (spacemacs/toggle-transparency)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
