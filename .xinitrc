@@ -10,4 +10,6 @@ start-pulseaudio-x11
 
 udiskie &
 
+dunst &
+
 exec xmonad

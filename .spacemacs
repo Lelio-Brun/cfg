@@ -60,7 +60,11 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(color all-the-icons)
+   dotspacemacs-additional-packages
+   '(
+     color
+     all-the-icons
+     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -327,6 +331,17 @@ If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
         (if (and ix (equal "LaTeX" (substring mode-name ix)))
             (LaTeX-fill-region-as-paragraph beg (point))
           (fill-region-as-paragraph beg (point))))))
+  (defun fill-paragraph-one-sentence-per-line ()
+    (interactive)
+    (save-excursion
+      (start-of-paragraph-text)
+      (let ((par-end (save-excursion (end-of-paragraph-text) (point))))
+        (while (< (point) par-end)
+          (fill-sentence)
+          (forward-sentence)
+          (just-one-space)
+          (newline)))))
+  (global-set-key (kbd "M-j") 'fill-sentence)
   (global-set-key (kbd "M-j") 'fill-sentence)
   (setq-default helm-display-function 'helm-default-display-buffer)
   (require 'helm-bookmark)
@@ -337,6 +352,10 @@ If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
   (setq tuareg-prettify-symbols-full t)
   (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
   (add-hook 'LaTeX-mode-hook 'flycheck-mode)
+  (add-hook 'LaTeX-mode-hook 'fci-mode)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (local-set-key (kbd "M-q") 'fill-paragraph-one-sentence-per-line)))
   (spacemacs/toggle-vi-tilde-fringe-off)
   (spacemacs/toggle-transparency)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -358,7 +377,7 @@ If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
  '(evil-want-abbrev-expand-on-insert-exit nil)
  '(package-selected-packages
    (quote
-    (lv all-the-icons memoize proof-general visual-fill-column vmd-mode htmlize use-package spinner parent-mode pkg-info epl flx anzu bind-map auto-complete popup bind-key origami yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic goto-chg caml iedit adoc-mode markup-faces graphviz-dot-mode sql-indent web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode powerline undo-tree highlight flycheck-ocaml pdf-tools tablist ghc dash yaml-mode toml-mode racer flycheck-rust cargo rust-mode async s org-ref key-chord ivy helm-bibtex parsebib biblio biblio-core diminish web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data company-math math-symbol-lists f winum fuzzy avy hydra flyspell-popup flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell company-auctex auto-dictionary auctex-latexmk auctex company packed flycheck evil yasnippet racket-mode faceup mmm-mode markdown-toc markdown-mode gh-md smartparens haskell-mode helm-core spacemacs-theme projectile helm ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen utop tuareg toc-org spaceline spacegray-theme smyx-theme restart-emacs request rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file ocp-indent neotree move-text molokai-theme merlin macrostep lorem-ipsum linum-relative link-hint intero info+ indent-guide ido-vertical-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word company-statistics company-ghci company-ghc company-coq company-cabal column-enforce-mode color-identifiers-mode cmm-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (ospl-mode lv all-the-icons memoize proof-general visual-fill-column vmd-mode htmlize use-package spinner parent-mode pkg-info epl flx anzu bind-map auto-complete popup bind-key origami yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic goto-chg caml iedit adoc-mode markup-faces graphviz-dot-mode sql-indent web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode powerline undo-tree highlight flycheck-ocaml pdf-tools tablist ghc dash yaml-mode toml-mode racer flycheck-rust cargo rust-mode async s org-ref key-chord ivy helm-bibtex parsebib biblio biblio-core diminish web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data company-math math-symbol-lists f winum fuzzy avy hydra flyspell-popup flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell company-auctex auto-dictionary auctex-latexmk auctex company packed flycheck evil yasnippet racket-mode faceup mmm-mode markdown-toc markdown-mode gh-md smartparens haskell-mode helm-core spacemacs-theme projectile helm ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen utop tuareg toc-org spaceline spacegray-theme smyx-theme restart-emacs request rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file ocp-indent neotree move-text molokai-theme merlin macrostep lorem-ipsum linum-relative link-hint intero info+ indent-guide ido-vertical-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word company-statistics company-ghci company-ghc company-coq company-cabal column-enforce-mode color-identifiers-mode cmm-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(proof-script-fly-past-comments t t)
  '(proof-splash-enable nil)
  '(reb-re-syntax (quote string)))

@@ -36,8 +36,9 @@ myWorkspaces =
     "\xf0ac",
     "\xf121",
     "\xf120",
-    "\xf1d3",
-    "\xf11b",
+    -- "\xf1d3",
+    -- "\xf11b",
+    "\xf086",
     "\xf013"
   ]
 
