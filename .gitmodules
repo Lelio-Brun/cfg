@@ -10,6 +10,3 @@
 [submodule ".xmonad/xmonad-git"]
 	path = .xmonad/xmonad-git
 	url = https://github.com/xmonad/xmonad
-[submodule ".keybase-completion"]
-	path = .keybase-completion
-	url = https://github.com/dtiersch/keybase-completion.git

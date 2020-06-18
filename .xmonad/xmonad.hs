@@ -43,10 +43,11 @@ myWorkspaces =
   ]
 
 myManageHook = composeAll [
-  (isFullscreen --> doFullFloat),
+  -- (isFullscreen --> doFullFloat),
   (isDialog --> doFloatDep maxrect),
   (className =? "Pavucontrol" --> rect 0.5 0.025 0.5 0.5),
   (className =? "Guake" --> doFloat),
+  (className =? "Xfce4-terminal" --> doFloat),
   manageHook myDefaultConfig
   ]
   where
@@ -124,7 +125,8 @@ myKeys =
     ("M-b", spawn "firefox"),
     ("M-r", sendMessage ToggleStruts),
     ("M-s", sendMessage MirrorShrink),
-    ("M-z", sendMessage MirrorExpand)
+    ("M-z", sendMessage MirrorExpand),
+    ("<F12>", spawn "xfce4-terminal --drop-down")
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],

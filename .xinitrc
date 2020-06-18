@@ -2,7 +2,7 @@
 
 xss-lock -- .scripts/locker &
 
-compton -b --config .config/compton.conf &
+picom -b --config .config/picom.conf &
 
 dbus-daemon --session --fork &
 
