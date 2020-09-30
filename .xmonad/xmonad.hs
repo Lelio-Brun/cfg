@@ -123,6 +123,7 @@ myKeys =
     ("M-e", spawn "emacs"),
     ("M-x", spawn "emacs /home/lelio/.xmonad/xmonad.hs"),
     ("M-b", spawn "firefox"),
+    ("M-m", spawn "thunderbird"),
     ("M-r", sendMessage ToggleStruts),
     ("M-s", sendMessage MirrorShrink),
     ("M-z", sendMessage MirrorExpand),

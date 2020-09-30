@@ -10,7 +10,6 @@ Config
     position = Top,
     template = "%StdinReader%\
                \}{\
-               \%mpc% | \
                \<action=pavucontrol>%alsa:default:Master%</action> | \
                \%bright% | \
                \<action=networkmanager_dmenu>%wlp2s0wi%</action> | \
@@ -19,7 +18,6 @@ Config
     commands =
       [
         Run StdinReader,
-        Run Com "ocaml" ["/home/lelio/.scripts/mpc.ml"] "mpc" 30,
         Run Date "<fc=goldenrod><action=gsimplecal>%T</action></fc>" "date" 10,
         Run Alsa "default" "Master" [
           "--template", "<status> <volume>",
