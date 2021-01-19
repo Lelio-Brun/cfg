@@ -24,13 +24,13 @@ Config
           "--ppad", "3",
           "--suffix", "False",
           "--",
-          "--on", "<fn=1></fn>",
-          "--off", "<fn=1></fn>",
+          "--on", "<fn=1>\xf028</fn>",
+          "--off", "<fn=1>\xf026</fn>",
           "--onc", "grey",
           "--offc", "darkred"
           ],
         Run Brightness [
-          "--template", "<fn=1></fn> <percent>",
+          "--template", "<fn=1>\xf185</fn> <percent>",
           "--ppad", "3",
           "--suffix", "False",
           "--",
@@ -42,9 +42,9 @@ Config
           "--ppad", "3",
           "--suffix", "False",
           "--",
-          "-o", "<fn=1></fn> <left> (<timeleft>)",
-          "-O", "<fn=1></fn> <left>",
-          "-i", "<fc=green><fn=1></fn></fc>"
+          "-o", "<fn=1>\xf242</fn> <left> (<timeleft>)",
+          "-O", "<fn=1>\xf1e6</fn> <left>",
+          "-i", "<fc=green><fn=1>\xf240</fn></fc>"
           ] 50
       ]
   }

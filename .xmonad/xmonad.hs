@@ -117,7 +117,7 @@ myKeys =
     ("M-<F10>", mpc "toggle"),
     ("M-<Page_Down>", mpc "next"),
     ("M-<Page_Up>", mpc "prev"),
-    ("M-p", spawn "dmenu_extended_run"),
+    ("M-p", spawn "rofi -display-combi 'Run' -combi-modi run,drun -show combi"),
     ("M-n", spawn "networkmanager_dmenu"),
     ("M-S-l", spawn "loginctl lock-session"),
     ("M-e", spawn "emacs"),
