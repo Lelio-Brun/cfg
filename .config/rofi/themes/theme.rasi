@@ -1,0 +1,48 @@
+* {
+  background-color: transparent;
+}
+
+window {
+  font: "Fira Mono 16";
+  transparency: "real";
+  location: north;
+  width: 100%;
+  y-offset: 24px;
+}
+
+mainbox {
+  background-color: #262d30F5;
+}
+
+inputbar {
+  background-color: transparent;
+}
+
+prompt {
+  enabled: false;
+  text-color: grey;
+  padding: 0 10 5 0;
+  background-color: transparent;
+}
+
+entry {
+  text-color: white;
+  placeholder: "Run...";
+  placeholder-color: grey;
+  padding: 5 0 5 5;
+}
+
+element {
+  padding: 1 5;
+  background-color: transparent;
+  text-color: lightgrey;
+}
+
+element selected {
+  text-color: aquamarine;
+  background-color: #FFFFFF11;
+}
+
+element-text {
+  highlight: none goldenrod;
+}
