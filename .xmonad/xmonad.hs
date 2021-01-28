@@ -65,7 +65,12 @@ myLayoutHook =
 
 myHandleEventHook = fullscreenEventHook <+> handleEventHook myDefaultConfig
 
-myStartupHook = spawnOnce "guake --hide" <+> startupHook myDefaultConfig
+myStartupHook =
+    spawnOnce "picom -b" <+>
+    spawn "gnome-screensaver" <+>
+    spawnOnce "guake --hide" <+>
+    spawnOnce "~/.fehbg" <+>
+    startupHook myDefaultConfig
 
 myLogHook hs = do
     S cs <- currentScreen
@@ -102,9 +107,9 @@ myLogHook hs = do
 
 myKeys =
   [
-    ("<XF86AudioRaiseVolume>", amixer "2%+"),
-    ("<XF86AudioLowerVolume>", amixer "2%-"),
-    ("<XF86AudioMute>", amixer "toggle"),
+    ("<XF86AudioRaiseVolume>", volume "+2%"),
+    ("<XF86AudioLowerVolume>", volume "-2%"),
+    ("<XF86AudioMute>", volume "0%"),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
     ("<XF86AudioNext>", mpc "next"),
@@ -117,23 +122,26 @@ myKeys =
     ("M-<F10>", mpc "toggle"),
     ("M-<Page_Down>", mpc "next"),
     ("M-<Page_Up>", mpc "prev"),
-    ("M-p", spawn "rofi -display-combi 'Run' -combi-modi run,drun -show combi"),
+    ("M-p", spawn "rofi -show drun"),
     ("M-n", spawn "networkmanager_dmenu"),
-    ("M-S-l", spawn "loginctl lock-session"),
+    ("M-l", spawn "gnome-screensaver-command -l"),
+    ("M-S-l", spawn "systemctl suspend"),
     ("M-e", spawn "emacs"),
-    ("M-x", spawn "emacs /home/lelio/.xmonad/xmonad.hs"),
+    ("M-x", spawn "emacs ~/.xmonad/xmonad.hs"),
     ("M-b", spawn "firefox"),
     ("M-m", spawn "thunderbird"),
     ("M-r", sendMessage ToggleStruts),
-    ("M-s", sendMessage MirrorShrink),
-    ("M-z", sendMessage MirrorExpand),
-    ("<F12>", spawn "xfce4-terminal --drop-down")
+    ("M-<Left>", sendMessage Shrink),
+    ("M-<Right>", sendMessage Expand),
+    ("M-<Down>", sendMessage MirrorShrink),
+    ("M-<Up>", sendMessage MirrorExpand),
+    ("<F12>", spawn "guake --toggle-visibility")
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],
        (f, m) <- [(viewScreen def, ""), (sendToScreen def, "S-")]]
   where
-    amixer c = spawn $ "amixer -M set Master " ++ c
+    volume c = spawn $ "pactl set-sink-volume @DEFAULT_SINK@ " ++ c
     ocaml_script s = spawn $ "ocaml ~/.scripts/" ++ s
     mpc c = spawn $ "mpc " ++ c
 

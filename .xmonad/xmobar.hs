@@ -1,24 +1,40 @@
 Config
   {
-    font = "xft:Roboto Mono:style=Regular:size=11:antialias=true",
-    additionalFonts = [ "xft:FontAwesome:size=11:antialias=true",
-                        "xft:DejaVu Sans:size=11:antialias=true",
-                        "xft:Roboto Mono:style=Regular:size=7:antialias=true" ],
+    font = "xft:Fira Mono:style=Regular:size=14:antialias=true",
+    additionalFonts = [ "xft:FontAwesome:size=14:antialias=true",
+                        "xft:DejaVu Sans:size=14:antialias=true",
+                        "xft:Fira Mono:style=Regular:size=10:antialias=true",
+                        "xft:FiraCode Nerd Font Mono:style=Regular:size=28"],
     bgColor = "#3F3F3F",
     fgColor = "grey",
     alpha = 204,
     position = Top,
     template = "%StdinReader%\
                \}{\
+               \%LFBO% | \
                \<action=pavucontrol>%alsa:default:Master%</action> | \
                \%bright% | \
-               \<action=networkmanager_dmenu>%wlp2s0wi%</action> | \
+               \<action=networkmanager_dmenu>%wi%</action> | \
                \%date% | \
                \%battery% ",
     commands =
       [
         Run StdinReader,
         Run Date "<fc=goldenrod><action=gsimplecal>%T</action></fc>" "date" 10,
+        Run WeatherX "LFBO" [
+          ("clear", "\xe30d")
+         , ("sunny", "\xe30d")
+         , ("mostly clear", "\xe30c")
+         , ("mostly sunny", "\xe30c")
+         , ("partly sunny", "\xe302")
+         , ("fair", "\xe302")
+         , ("cloudy","\xe33d")
+         , ("overcast","\xe30c")
+         , ("partly cloudy", "\xe302")
+         , ("mostly cloudy", "\xe376")
+         , ("considerable cloudiness", "\xe312")] [
+          "--template", "<fn=4><skyConditionS></fn> <tempC>°"
+          ] 18000,
         Run Alsa "default" "Master" [
           "--template", "<status> <volume>",
           "--ppad", "3",
@@ -35,8 +51,9 @@ Config
           "--suffix", "False",
           "--",
           "-D", "intel_backlight",
-          "-C", "brightness"] 10,
-        Run Wireless "wlp2s0" ["--ppad", "3"] 50,
+          "-C", "brightness"
+          ] 10,
+        Run Wireless "" ["--ppad", "3"] 50,
         Run Battery [
           "--template" , "<acstatus>",
           "--ppad", "3",
