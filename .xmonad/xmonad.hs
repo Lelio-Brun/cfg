@@ -68,6 +68,7 @@ myHandleEventHook = fullscreenEventHook <+> handleEventHook myDefaultConfig
 
 myStartupHook =
     spawnOnce "picom -b" <+>
+    spawn "gnome-screensaver" <+>
     spawnOnce "~/.fehbg" <+>
     startupHook myDefaultConfig
 
@@ -107,9 +108,9 @@ myLogHook hs = do
 
 myKeys =
   [
-    ("<XF86AudioRaiseVolume>", amixer "2%+"),
-    ("<XF86AudioLowerVolume>", amixer "2%-"),
-    ("<XF86AudioMute>", amixer "toggle"),
+    ("<XF86AudioRaiseVolume>", volume "+2%"),
+    ("<XF86AudioLowerVolume>", volume "-2%"),
+    ("<XF86AudioMute>", volume "0%"),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
     ("<XF86AudioNext>", mpc "next"),
@@ -124,21 +125,24 @@ myKeys =
     ("M-<Page_Up>", mpc "prev"),
     ("M-p", spawn "rofi -show drun"),
     ("M-n", spawn "networkmanager_dmenu"),
-    ("M-S-l", spawn "loginctl lock-session"),
+    ("M-l", spawn "gnome-screensaver-command -l"),
+    ("M-S-l", spawn "systemctl suspend"),
     ("M-e", spawn "emacs"),
     ("M-x", spawn "emacs ~/.xmonad/xmonad.hs"),
     ("M-b", spawn "firefox"),
     ("M-m", spawn "thunderbird"),
     ("M-r", sendMessage ToggleStruts),
-    ("M-s", sendMessage MirrorShrink),
-    ("M-z", sendMessage MirrorExpand),
+    ("M-<Left>", sendMessage Shrink),
+    ("M-<Right>", sendMessage Expand),
+    ("M-<Down>", sendMessage MirrorShrink),
+    ("M-<Up>", sendMessage MirrorExpand),
     ("<F12>", scratchpadSpawnActionCustom "kitty --class scratchpad")
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],
        (f, m) <- [(viewScreen def, ""), (sendToScreen def, "S-")]]
   where
-    amixer c = spawn $ "amixer -M set Master " ++ c
+    volume c = spawn $ "pactl set-sink-volume @DEFAULT_SINK@ " ++ c
     ocaml_script s = spawn $ "ocaml ~/.scripts/" ++ s
     mpc c = spawn $ "mpc " ++ c
 
