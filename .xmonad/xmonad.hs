@@ -14,6 +14,7 @@ import XMonad.Actions.PhysicalScreens
 import XMonad.Config.Azerty
 import XMonad.Actions.UpdatePointer
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Scratchpad
 import qualified XMonad.StackSet as SS
 
 import System.IO
@@ -27,7 +28,7 @@ myModMask = mod4Mask
 
 myBorderWidth = 0
 
-myTerminal = "termite"
+myTerminal = "kitty"
 
 myWorkspaces =
   zipWith (\n c ->"<fn=3>" ++ show n ++ "</fn><fn=1>" ++ c ++ "</fn>") [1..]
@@ -44,9 +45,9 @@ myWorkspaces =
 
 myManageHook = composeAll [
   -- (isFullscreen --> doFullFloat),
+  scratchpadManageHook (SS.RationalRect 0 0 1 0.5),
   (isDialog --> doFloatDep maxrect),
   (className =? "Pavucontrol" --> rect 0.5 0.025 0.5 0.5),
-  (className =? "Guake" --> doFloat),
   (className =? "Xfce4-terminal" --> doFloat),
   manageHook myDefaultConfig
   ]
@@ -67,8 +68,6 @@ myHandleEventHook = fullscreenEventHook <+> handleEventHook myDefaultConfig
 
 myStartupHook =
     spawnOnce "picom -b" <+>
-    spawn "gnome-screensaver" <+>
-    spawnOnce "guake --hide" <+>
     spawnOnce "~/.fehbg" <+>
     startupHook myDefaultConfig
 
@@ -76,6 +75,7 @@ myLogHook hs = do
     S cs <- currentScreen
     dynamicLogWithPP def
       {
+        ppSort = (.scratchpadFilterOutWorkspace) <$> ppSort defaultPP,
         ppOutput = setLog cs,
         ppCurrent = xmobarColor "white" "",
         ppVisible = xmobarColor "#a6a6a6" "",
@@ -107,9 +107,9 @@ myLogHook hs = do
 
 myKeys =
   [
-    ("<XF86AudioRaiseVolume>", volume "+2%"),
-    ("<XF86AudioLowerVolume>", volume "-2%"),
-    ("<XF86AudioMute>", volume "0%"),
+    ("<XF86AudioRaiseVolume>", amixer "2%+"),
+    ("<XF86AudioLowerVolume>", amixer "2%-"),
+    ("<XF86AudioMute>", amixer "toggle"),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
     ("<XF86AudioNext>", mpc "next"),
@@ -124,24 +124,21 @@ myKeys =
     ("M-<Page_Up>", mpc "prev"),
     ("M-p", spawn "rofi -show drun"),
     ("M-n", spawn "networkmanager_dmenu"),
-    ("M-l", spawn "gnome-screensaver-command -l"),
-    ("M-S-l", spawn "systemctl suspend"),
+    ("M-S-l", spawn "loginctl lock-session"),
     ("M-e", spawn "emacs"),
     ("M-x", spawn "emacs ~/.xmonad/xmonad.hs"),
     ("M-b", spawn "firefox"),
     ("M-m", spawn "thunderbird"),
     ("M-r", sendMessage ToggleStruts),
-    ("M-<Left>", sendMessage Shrink),
-    ("M-<Right>", sendMessage Expand),
-    ("M-<Down>", sendMessage MirrorShrink),
-    ("M-<Up>", sendMessage MirrorExpand),
-    ("<F12>", spawn "guake --toggle-visibility")
+    ("M-s", sendMessage MirrorShrink),
+    ("M-z", sendMessage MirrorExpand),
+    ("<F12>", scratchpadSpawnActionCustom "kitty --class scratchpad")
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],
        (f, m) <- [(viewScreen def, ""), (sendToScreen def, "S-")]]
   where
-    volume c = spawn $ "pactl set-sink-volume @DEFAULT_SINK@ " ++ c
+    amixer c = spawn $ "amixer -M set Master " ++ c
     ocaml_script s = spawn $ "ocaml ~/.scripts/" ++ s
     mpc c = spawn $ "mpc " ++ c
 
