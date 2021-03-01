@@ -5,7 +5,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Layout.Spacing
 import XMonad.Layout.IndependentScreens(countScreens)
@@ -110,7 +110,7 @@ myKeys =
   [
     ("<XF86AudioRaiseVolume>", volume "+2%"),
     ("<XF86AudioLowerVolume>", volume "-2%"),
-    ("<XF86AudioMute>", volume "0%"),
+    ("<XF86AudioMute>", mute ()),
     ("<XF86AudioPlay>", mpc "play"),
     ("<XF86AudioPause>", mpc "pause"),
     ("<XF86AudioNext>", mpc "next"),
@@ -136,13 +136,14 @@ myKeys =
     ("M-<Right>", sendMessage Expand),
     ("M-<Down>", sendMessage MirrorShrink),
     ("M-<Up>", sendMessage MirrorExpand),
-    ("<F12>", scratchpadSpawnActionCustom "kitty --class scratchpad")
+    ("<F12>", scratchpadSpawnActionCustom "kitty --class scratchpad --override background_opacity=.95")
   ]
   ++ [((m ++ "M-" ++ key), f sc)
      | (key, sc) <- zip ["<F1>", "<F2>", "<F3>"] [0..],
        (f, m) <- [(viewScreen def, ""), (sendToScreen def, "S-")]]
   where
     volume c = spawn $ "pactl set-sink-volume @DEFAULT_SINK@ " ++ c
+    mute () = spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     ocaml_script s = spawn $ "ocaml ~/.scripts/" ++ s
     mpc c = spawn $ "mpc " ++ c
 
