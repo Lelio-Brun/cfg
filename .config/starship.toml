@@ -61,6 +61,7 @@ error_symbol = "[❯❯❯](bold red)"
 vicmd_symbol = "[❮](bold red)[❮](bold yellow)[❮](bold green)"
 
 [directory]
+truncation_length = 15
 truncate_to_repo = false
 style = "cyan"
 fish_style_pwd_dir_length = 1
