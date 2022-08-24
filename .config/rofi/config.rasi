@@ -3,6 +3,7 @@ configuration {
   show-icons: true;
   kb-row-tab: "";
   kb-row-select: "Tab";
-  terminal: "termite";
-  theme: "themes/theme.rasi";
+  terminal: "kitty";
 }
+
+@theme "themes/theme.rasi"
