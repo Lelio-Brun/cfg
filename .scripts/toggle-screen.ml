@@ -86,9 +86,13 @@ let get () =
           while !scan do
             let mode = split !line |> get_mode in
             modes := mode :: !modes;
-            line := input_line pr;
-            scan := not (is_substring "connected" !line
-                         || is_substring "disconnected" !line)
+            begin try
+                line := input_line pr;
+              with e ->
+                screens := (split l |> classify (List.rev !modes)) :: !screens;
+                raise e
+            end;
+            scan := not (is_substring "connected" !line)
           done;
           screens := (split l |> classify (List.rev !modes)) :: !screens;
           modes := []
@@ -98,12 +102,16 @@ let get () =
     with e ->
       Unix.close_process_in pr |> ignore
   end;
+  let screens = List.rev !screens in
   let primary, externals =
-    extract (fun {primary} -> primary) (List.rev !screens)
+    extract (fun {primary} -> primary) screens
   in
   match primary with
   | Some prim -> { prim; externals }
-  | None -> assert false
+  | None -> begin match screens with
+      | prim :: externals -> { prim; externals }
+      | _ -> assert false
+    end
 
 let toggle_ext = ref false
 let toggle_primary = ref false
@@ -201,4 +209,4 @@ let _ =
   let opt = make_opt s in
   let pr = Unix.open_process_in ("xrandr " ^ opt) in
   Unix.close_process_in pr |> ignore;
-  Unix.system "sh ~/.scripts/fehbg" |> ignore
+  Unix.system "sh ~/.fehbg" |> ignore
