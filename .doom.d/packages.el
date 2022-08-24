@@ -55,9 +55,17 @@
 ;; markdown previewer
 (package! vmd-mode)
 
-;; rainbow mode for color names
-(package! rainbow-mode)
-
 ;; Frama-C ACSL mode
 (package! acsl
   :recipe (:local-repo "frama-c"))
+
+;; fix Coq mode slowdowns
+;; (package! dtrt-indent :disable t)
+
+;; GhostText
+(package! atomic-chrome
+  :recipe (:host github :repo "alpha22jp/atomic-chrome"))
+
+;; Lustre mode
+(package! lustre-mode
+  :recipe (:host github :repo "SamuelFountain/lustre-mode"))
