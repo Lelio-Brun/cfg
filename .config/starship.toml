@@ -27,7 +27,6 @@ $kotlin\
 $nim\
 $nodejs\
 $ocaml\
-${custom.opam_switch}\
 $perl\
 $php\
 $purescript\
@@ -65,6 +64,7 @@ truncation_length = 15
 truncate_to_repo = false
 style = "cyan"
 fish_style_pwd_dir_length = 1
+repo_root_style = "purple bold"
 
 [git_branch]
 symbol = " "
@@ -110,11 +110,3 @@ echo "$GIT_REMOTE_SYMBOL "
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
 shell = ["bash", "--noprofile", "--norc"]
 format = "at $output  "
-
-[custom.opam_switch]
-command = "fish_opam_switch"
-files = [".merlin", "dune", "dune-project", "jbuild", "jbuild-ignore", "_tags", ".opam"]
-directories = ["_opam"]
-extensions = ["ml", "mli", "mll", "mly"]
-shell = ["fish"]
-format = '[\(](yellow)$output[\)](yellow) '
