@@ -3,7 +3,7 @@
 }
 
 window {
-  font: "Fira Mono 16";
+  font: "Fira Mono 14";
   transparency: "real";
   location: north;
   width: 100%;
@@ -26,23 +26,24 @@ prompt {
 }
 
 entry {
-  text-color: white;
+  color: white;
   placeholder: "Run...";
   placeholder-color: grey;
   padding: 5 0 5 5;
 }
 
 element {
+  color: lightgrey;
   padding: 1 5;
   background-color: transparent;
-  text-color: lightgrey;
 }
 
 element selected {
-  text-color: aquamarine;
+  color: aquamarine;
   background-color: #FFFFFF11;
 }
 
 element-text {
+  color: inherit;
   highlight: none goldenrod;
 }
