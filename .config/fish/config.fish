@@ -31,10 +31,24 @@ abbr -a -g dux dune exec
 abbr -a -g dui dune install
 abbr -a -g duc dune clean
 abbr -a -g dut dune runtest
+abbr -a -g dop dune utop
 
 abbr -a -g o open
 
+alias ssh="kitty +kitten ssh"
+
+set -gx _JAVA_AWT_WM_NONREPARENTING 1
+
+set -gx MANPATH (man -w) (manpath -g)
+
 source ~/.opam/opam-init/init.fish
 
+fish_add_path ~/texlive/2021/bin/x86_64-linux
+fish_add_path ~/.cargo/bin
+
+# cause the default don't seem to be the default
+nvm use --silent default
+
+thefuck --alias | source
 starship init fish | source
 kitty + complete setup fish | source
