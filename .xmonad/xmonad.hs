@@ -60,7 +60,7 @@ myManageHook = composeAll [
 myLayoutHook =
   avoidStruts $
   spacingRaw True (Border 0 0 0 0) False (Border 2 0 1 1) True $
-  tall ||| Full
+  tall ||| Mirror tall ||| Full
   where
     tall = ResizableTall 1 (2/100) (1/2) []
 
@@ -91,7 +91,7 @@ myLogHook hs = do
       where
         layout =
           replace "Spacing ResizableTall" "<fn=2>◧</fn>" .
-          -- replace "Spacing Mirror ResizableTall" "<fn=2>⬒</fn>" .
+          replace "Spacing Mirror ResizableTall" "<fn=2>⬒</fn>" .
           replace "Spacing Full" "<fn=2>■</fn>"
         replace old new =
           intercalate new . splitOn old
@@ -99,7 +99,7 @@ myLogHook hs = do
           foldM (\ _ (h, sc) ->
                    let color = if sc == cs then "white" else "lightslategrey"
                    in hPutStrLn h ("<fc=lightslategrey>:</fc><fc=" ++ color ++ ">" ++
-                                   show sc ++
+                                   show sc ++ "/" ++ show (length hs - 1) ++
                                    "</fc><fc=lightslategrey>:</fc> " ++ s))
           () hs
         currentScreen = do
@@ -119,6 +119,7 @@ myKeys =
     ("<XF86MonBrightnessDown>", ocaml_script "change-backlight.ml -dec"),
     ("M-<F7>", ocaml_script "toggle-screen.ml -e"),
     ("M-<F8>", ocaml_script "toggle-screen.ml -m"),
+    ("M-<F9>", ocaml_script "change-backlight.ml -tog"),
     ("<XF86Display>", ocaml_script "toggle-screen.ml -p"),
     ("M-<F10>", mpc "toggle"),
     ("M-<Page_Down>", mpc "next"),
@@ -131,6 +132,9 @@ myKeys =
     ("M-x", spawn "emacs ~/.xmonad/xmonad.hs"),
     ("M-b", spawn "firefox"),
     ("M-m", spawn "thunderbird"),
+    -- ("M-c", spawn "xdotool click --repeat 300000 --delay 75 1"),
+    -- ("M-C-c", spawn "killall xdotool"),
+    -- ("M-C-m", spawn "btop"),
     ("M-r", sendMessage ToggleStruts),
     ("M-<Left>", sendMessage Shrink),
     ("M-<Right>", sendMessage Expand),

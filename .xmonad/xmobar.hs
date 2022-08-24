@@ -29,9 +29,10 @@ Config
          , ("partly sunny", "\xe302")
          , ("fair", "\xe302")
          , ("cloudy","\xe33d")
-         , ("overcast","\xe30c")
-         , ("partly cloudy", "\xe302")
-         , ("mostly cloudy", "\xe376")
+         , ("overcast","\xe312")
+         , ("obscured","\xe31e")
+         , ("partly cloudy", "\xe32e")
+         , ("mostly cloudy", "\xe312")
          , ("considerable cloudiness", "\xe312")] [
           "--template", "<fn=4><skyConditionS></fn> <tempC>°"
           ] 18000,
