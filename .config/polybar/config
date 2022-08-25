@@ -386,15 +386,15 @@ ramp-3 = 
 ; https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-fullfeatured
 [module/weather]
 type = custom/script
-exec = ~/polybar-scripts/openweathermap-fullfeatured.sh
+exec = ~/.scripts/openweathermap-fullfeatured.sh
 interval = 600
 ; label-font = 3
 
 [module/bluetooth]
 type = custom/script
-exec = ~/polybar-scripts/system-bluetooth-bluetoothctl.sh
+exec = ~/.scripts/system-bluetooth-bluetoothctl.sh
 tail = true
-click-left = ~/polybar-scripts/system-bluetooth-bluetoothctl.sh --toggle &
+click-left = ~/.scripts/system-bluetooth-bluetoothctl.sh --toggle &
 
 [global/wm]
 ; Adjust the _NET_WM_STRUT_PARTIAL top value
