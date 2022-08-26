@@ -1,0 +1,301 @@
+[module/monitor]
+type = custom/script
+content = ${bar/example.monitor}
+
+[module/xworkspaces]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = false
+
+format = <label-state>
+
+; icon-[0-9]+ = <desktop-name>;<icon>
+; NOTE: The desktop name needs to match the name configured by the WM
+; You can get a list of the defined desktops using:
+; $ xprop -root _NET_DESKTOP_NAMES
+; Note: Neither <desktop-name> nor <icon> can contain a semicolon (;)
+icon-0 = 1;
+icon-1 = 2;爵
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+icon-5 = 6;漣
+icon-default = 
+
+label-active = %{T3} %{T-}%{T2}%icon%%{T-}%{T3} %{T-}
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1pt
+
+label-occupied = %{T3}%name%%{T-}%{T2}%icon%%{T-}%{T3} %{T-}
+label-occupied-padding = 1pt
+
+label-urgent = %{T3}%name%%{T-}%{T2}%icon%%{T-}%{T3} %{T-}
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1pt
+
+label-empty = %{T3}%name%%{T-}%{T2}%icon%%{T-}%{T3} %{T-}
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1pt
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+ramp-volume-font = 2
+ramp-volume-foreground = ${colors.primary}
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = %percentage%%
+
+label-muted = ﱝ
+label-muted-font = 2
+label-muted-foreground = ${colors.disabled}
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+
+click-right = pavucontrol
+
+[network-base]
+type = internal/network
+interval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected-foreground = ${colors.disabled}
+label-disconnected-font = 2
+
+[module/wlan]
+inherit = network-base
+interface-type = wireless
+interface = wlo1
+format-connected-prefix = "直 "
+format-connected-prefix-foreground = ${colors.primary}
+format-connected-prefix-font = 2
+label-connected = %essid% %signal%
+label-disconnected = 睊
+
+[module/eth]
+inherit = network-base
+interface-type = wired
+interface = enx74782710878f
+label-connected = 
+label-connected-foreground = ${colors.primary}
+label-connected-font = 2
+label-disconnected = 
+
+[module/date]
+type = internal/date
+; Seconds to sleep between updates
+; Default: 1.0
+interval = 1.0
+
+; See "https://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %Y-%m-%d%
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+time-alt = %Y-%m-%d %H:%M:%S
+
+label = %time%
+label-foreground = ${colors.secondary}
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+; Use the `/sys/class/backlight/.../actual-brightness` file
+; rather than the regular `brightness` file.
+; Defaults to true unless the specified card is an amdgpu backlight.
+use-actual-brightness = true
+
+; Enable changing the backlight with the scroll wheel
+; NOTE: This may require additional configuration on some systems. Polybar will
+; write to `/sys/class/backlight/${self.card}/brightness` which requires polybar
+; to have write access to that file.
+; DO NOT RUN POLYBAR AS ROOT.
+; The recommended way is to add the user to the
+; `video` group and give that group write-privileges for the `brightness` file.
+; See the ArchWiki for more information:
+; https://wiki.archlinux.org/index.php/Backlight#ACPI
+; Default: false
+enable-scroll = true
+
+format = <ramp> <label>
+ramp-foreground = ${colors.primary}
+label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-5 = 
+ramp-6 = 
+
+[module/weather]
+type = custom/script
+exec = ~/.scripts/openweathermap.sh
+interval = 600
+
+[module/bluetooth]
+type = custom/script
+exec = ~/.scripts/system-bluetooth-bluetoothctl.sh
+tail = false
+interval = 2
+format-prefix = 
+format-prefix-foreground = ${colors.primary}
+format-prefix-font = 2
+label = %output%
+label-fail = 
+label-failed-foreground = ${colors.disabled}
+label-failed-font = 2
+click-left = blueman-manager
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+; Default: 100
+full-at = 99
+
+; format-low once this charge percentage is reached
+; Default: 10
+low-at = 10
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <ramp-capacity>
+format-full-foreground = ${theme.green}
+
+; Format used when battery level drops to low-at
+; If not defined, format-discharging is used instead.
+; Available tags:
+;   <label-low>
+;   <animation-low>
+;   <bar-capacity>
+;   <ramp-capacity>
+format-low = <label-low> <animation-low>
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%% (%time%)
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+label-full = Fully charged
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+; New in version 3.6.0
+label-low = BATTERY LOW
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+; Framerate in milliseconds
+animation-charging-framerate = 750
+animation-charging-foreground = ${colors.primary}
+
+; Only applies if <animation-discharging> is used
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+; Framerate in milliseconds
+animation-discharging-framerate = 500
+
+; Only applies if <animation-low> is used
+animation-low-0 = 
+animation-low-1 = 
+animation-low-framerate = 200
+animation-low-foreground = ${colors.alert}

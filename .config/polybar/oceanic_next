@@ -1,0 +1,25 @@
+[theme]
+black = #1B2B34
+gray1 = #343D46
+gray2 = #4F5B66
+gray3 = #65737E
+gray4 = #A7ADBA
+gray5 = #C0C5CE
+gray6 = #CDD3DE
+white = #D8DEE9
+
+red = #EC5f67
+bright-red = #FF7F87
+green = #99C794
+bright-green = #B9E7B4
+yellow = #FAC863
+bright-yellow = #FFE883
+blue = #6699CC
+bright-blue = #86B9EC
+magenta = #C594C5
+bright-magenta = #E5B4E5
+cyan = #5FB3B3
+bright-cyan = #7FD3D3
+
+foreground = ${self.gray6}
+background = #AA1B2B34
