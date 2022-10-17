@@ -1,4 +1,6 @@
-#!/usr/bin/env fish
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
 
 set fish_color_comment 888888
 set fish_color_autosuggestion $fish_color_comment
@@ -6,9 +8,9 @@ set fish_color_autosuggestion $fish_color_comment
 abbr -a -g gco git checkout
 abbr -a -g gcl git clone
 abbr -a -g gf  git fetch
-abbr -a -g gfm git pull
-abbr -a -g gp  git push
-abbr -a -g gia git add
+abbr -a -g gpl git pull
+abbr -a -g gps git push
+abbr -a -g ga  git add
 abbr -a -g glg git log --topo-order --abbrev-commit --graph --pretty=oneline
 abbr -a -g glc git shortlog --summary --numbered
 abbr -a -g gm  git merge
@@ -37,18 +39,10 @@ abbr -a -g o open
 
 alias ssh="kitty +kitten ssh"
 
-set -gx _JAVA_AWT_WM_NONREPARENTING 1
-
-set -gx MANPATH (man -w) (manpath -g)
-
 source ~/.opam/opam-init/init.fish
 
-fish_add_path ~/texlive/2021/bin/x86_64-linux
-fish_add_path ~/.cargo/bin
+fish_add_path -p ~/.emacs.d/bin/
+# fish_add_path ~/texlive/2021/bin/x86_64-linux
 
-# cause the default don't seem to be the default
-nvm use --silent default
-
-thefuck --alias | source
 starship init fish | source
 kitty + complete setup fish | source
