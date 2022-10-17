@@ -6,7 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Lélio Brun"
+(setq user-full-name "Lelio Brun"
       user-mail-address "lb@leliobrun.net")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
@@ -21,21 +21,19 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-oceanic-next)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -77,7 +75,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
+;;
 ;; Spacemacs-like local leader key
 (setq doom-localleader-key ",")
 
@@ -144,9 +142,9 @@
 ;; A Camel for Tuareg
 (add-hook 'tuareg-mode-hook #'(lambda() (setq mode-name "🐫")))
 
-;; ACSL mode
-(use-package! acsl
-  :mode ("\\.c\\'" . acsl-mode))
+;; ;; ACSL mode
+;; (use-package! acsl
+;;   :mode ("\\.c\\'" . acsl-mode))
 
 ;; Configure LSP
 (after! lsp-ui
