@@ -9,7 +9,7 @@ abbr -a -g gco git checkout
 abbr -a -g gcl git clone
 abbr -a -g gf  git fetch
 abbr -a -g gpl git pull
-abbr -a -g gps git push
+abbr -a -g gp git push
 abbr -a -g ga  git add
 abbr -a -g glg git log --topo-order --abbrev-commit --graph --pretty=oneline
 abbr -a -g glc git shortlog --summary --numbered
@@ -20,6 +20,7 @@ abbr -a -g gc  git commit --verbose
 abbr -a -g gcm git commit --verbose --message
 abbr -a -g gca git commit --verbose --all
 abbr -a -g grm git rm
+abbr -a -g gcfg git --git-dir=$HOME/.cfg/ --work-tree=$HOME
 
 abbr -a -g oce 'eval (opam env)'
 abbr -a -g osw opam switch

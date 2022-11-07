@@ -84,8 +84,8 @@ deleted = "[-$count](red)"
 
 [status]
 disabled = false
-format = "[$symbol $status]($style) "
-map_symbol = true
+format = "[$status $common_meaning$signal_name$maybe_int]($style) "
+map_symbol = false
 
 [ocaml]
 style = "yellow"

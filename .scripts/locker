@@ -1,4 +1,0 @@
-#!/bin/sh
-
-#i3lock -n -e -B 1
-betterlockscreen -l dim

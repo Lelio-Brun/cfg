@@ -63,5 +63,12 @@
 ;; (package! dtrt-indent :disable t)
 
 ;; Lustre mode
-(package! lustre-mode
-  :recipe (:host github :repo "SamuelFountain/lustre-mode"))
+(package! lustre-mode :recipe
+  (:host github
+   :repo "SamuelFountain/lustre-mode"))
+
+;; Tamarin mode
+(package! spthy-mode :recipe
+  (:host github
+   :repo "tamarin-prover/tamarin-prover"
+   :files ("etc/*.el")))

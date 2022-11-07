@@ -1,0 +1,34 @@
+@import "~/.config/rofi/common.rasi"
+
+configuration {
+    show-icons: true;
+    display-drun: "Applications";
+    drun-display-format: "{name}";
+    display-window: "Fenêtres";
+}
+
+window {
+    padding: 30;
+}
+listview {
+    lines: 10;
+    columns: 3;
+    fixed-height: 0;
+    border: 8px 0px 0px;
+    border-color: @separatorcolor;
+    spacing: 8px;
+    scrollbar: false;
+    padding: 2px 0px 0px;
+}
+mainbox {
+    border: 0;
+    padding: 0;
+}
+message {
+    border: 2px 0px 0px;
+    border-color: @separatorcolor;
+    padding: 1px;
+}
+textbox {
+    text-color: @foreground;
+}

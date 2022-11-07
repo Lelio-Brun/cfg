@@ -1,9 +1,0 @@
-configuration {
-  matching: "fuzzy";
-  show-icons: true;
-  kb-row-tab: "";
-  kb-row-select: "Tab";
-  terminal: "kitty";
-}
-
-@theme "themes/theme.rasi"

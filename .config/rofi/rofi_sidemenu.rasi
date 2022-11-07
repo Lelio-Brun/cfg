@@ -1,0 +1,20 @@
+/*******************************************************
+ * ROFI configs i3 powermenu for EndeavourOS
+ * Maintainer: joekamprad <joekamprad@endeavouros.com>
+ *******************************************************/
+@import "~/.config/rofi/common.rasi"
+
+configuration {
+    show-icons: false;
+    fullscreen: false;
+}
+
+window {
+    padding: 10;
+    width: 170px;
+    location: east;
+}
+listview {
+    columns: 1;
+    scrollbar: false;
+}

@@ -157,4 +157,12 @@
 
 ;; Lustre mode config
 (use-package! lustre-mode
-  :mode ("\\.lus\\'" . lustre-mode))
+  :mode "\\.lus\\'")
+
+;; Tamarin mode config
+(use-package! spthy-mode
+  :mode "\\.spthy\\'")
+
+;; CSS mode for Rofi config files
+(use-package! css-mode
+  :mode "\\.rasi\\'")
