@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set mixer default
+set mixer pulse
 set scontrol Master
 set step -5%
 
@@ -18,6 +18,11 @@ function volume
 end
 
 function format
+    volume | string match --quiet --regex '\[(?<vol>\d+)%\]'
+    printf "%d\n" $vol
+end
+
+function full_format
     volume | string match --quiet --regex '\[(?<vol>\d+)%\] \[(?<st>on|off)\]'
     if test $st = "off"
         set icon 婢
@@ -31,7 +36,14 @@ function format
     printf "%s %3d%%\n" $icon $vol
 end
 
-format
+argparse 'v/value' -- $argv
+or return
+
+if set -q _flag_value
+    format
+else
+    full_format
+end
 
 switch $button
     case 1
