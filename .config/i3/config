@@ -213,16 +213,26 @@ bindsym F1 exec ~/.config/i3/scripts/keyhint-2
 # bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
 # Backlight control
-bindsym XF86MonBrightnessUp exec xbacklight +5 \
+bindsym XF86MonBrightnessUp exec xbacklight -time 1 -steps 1 +5 \
 		&& notify-send \
 		-h string:synchronous:brightness \
-		-h int:value:"$(xbacklight -get | cut -d '.' -f 1)" \
-		"  $(xbacklight -get | cut -d '.' -f 1)%"
-bindsym XF86MonBrightnessDown exec xbacklight -5 \
+		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
+		"  $(xbacklight -get | xargs printf '%.f')%"
+bindsym XF86MonBrightnessDown exec xbacklight -time 1 -steps 1 -5 \
 		&& notify-send \
 		-h string:synchronous:brightness \
-		-h int:value:"$(xbacklight -get | cut -d '.' -f 1)" \
-		"  $(xbacklight -get | cut -d '.' -f 1)%"
+		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
+		"  $(xbacklight -get | xargs printf '%.f')%"
+bindsym Shift+XF86MonBrightnessUp exec xbacklight =100 \
+		&& notify-send \
+		-h string:synchronous:brightness \
+		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
+		"  $(xbacklight -get | xargs printf '%.f')%"
+bindsym Shift+XF86MonBrightnessDown exec xbacklight =5 \
+		&& notify-send \
+		-h string:synchronous:brightness \
+		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
+		"  $(xbacklight -get | xargs printf '%.f')%"
 
 # change focus
 # bindsym $mod+j focus left
