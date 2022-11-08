@@ -1,5 +1,6 @@
 include /usr/share/nano/*.nanorc
 include /usr/share/nano-syntax-highlighting/*.nanorc
+include gitcommit.nanorc
 
 set autoindent
 set linenumbers
