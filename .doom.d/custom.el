@@ -7,7 +7,13 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(safe-local-variable-values
-   '((reftex-default-bibliography "../bibliography.bib" "../misc.bib")
+   '((fstar-subp-prover-args "--warn_error" "-331" "--cache_checked_modules" "--cache_dir" "../.cache/symbolic" "--include" ".." "--include" "../symbolic")
+     (fstar-subp-prover-args "--warn_error" "-331" "--include" ".." "--include" "../symbolic")
+     (fstar-subp-prover-args "--include" ".." "--include" "../symbolic")
+     (fstar-subp-prover-args "--include" "..,../symbolic")
+     (fstar-subp-prover-args quote
+      ("--include" "..,../symbolic"))
+     (reftex-default-bibliography "../bibliography.bib" "../misc.bib")
      (reftex-cite-format . biblatex)
      (reftex-default-bibliography "refs.bib"))))
 (custom-set-faces

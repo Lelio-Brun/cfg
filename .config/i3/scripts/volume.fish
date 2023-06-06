@@ -25,13 +25,13 @@ end
 function full_format
     volume | string match --quiet --regex '\[(?<vol>\d+)%\] \[(?<st>on|off)\]'
     if test $st = "off"
-        set icon 婢
+        set icon 󰖁
     else if test $vol -gt 66
-        set icon 墳
+        set icon 󰕾
     else if test $vol -gt 33
-        set icon 奔
+        set icon 󰖀
     else
-        set icon 奄
+        set icon 󰕿
     end
     printf "%s %3d%%\n" $icon $vol
 end

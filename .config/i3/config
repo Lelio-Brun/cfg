@@ -156,6 +156,15 @@ bindcode $mod+Shift+80 move container to workspace $ws8
 bindcode $mod+Shift+81 move container to workspace $ws9
 bindcode $mod+Shift+90 move container to workspace $ws10
 
+# move workspaces to outputs
+bindsym $mod+Mod1+Tab move workspace to output next
+bindsym $mod+Mod1+Left move workspace to output left
+bindsym $mod+Mod1+Right move workspace to output right
+
+bindsym $mod+F9 exec ~/.config/i3/scripts/screen_layout.fish --primary --external
+bindsym $mod+F10 exec ~/.config/i3/scripts/screen_layout.fish --primary
+bindsym $mod+F11 exec ~/.config/i3/scripts/screen_layout.fish --mirror
+
 # resize window (you can also use the mouse for that):
 #mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -217,22 +226,22 @@ bindsym XF86MonBrightnessUp exec xbacklight -time 1 -steps 1 +5 \
 		&& notify-send \
 		-h string:synchronous:brightness \
 		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
-		"  $(xbacklight -get | xargs printf '%.f')%"
+		"󰃞  $(xbacklight -get | xargs printf '%.f')%"
 bindsym XF86MonBrightnessDown exec xbacklight -time 1 -steps 1 -5 \
 		&& notify-send \
 		-h string:synchronous:brightness \
 		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
-		"  $(xbacklight -get | xargs printf '%.f')%"
+		"󰃞  $(xbacklight -get | xargs printf '%.f')%"
 bindsym Shift+XF86MonBrightnessUp exec xbacklight =100 \
 		&& notify-send \
 		-h string:synchronous:brightness \
 		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
-		"  $(xbacklight -get | xargs printf '%.f')%"
+		"󰃞  $(xbacklight -get | xargs printf '%.f')%"
 bindsym Shift+XF86MonBrightnessDown exec xbacklight =5 \
 		&& notify-send \
 		-h string:synchronous:brightness \
 		-h int:value:"$(xbacklight -get | xargs printf '%.f')" \
-		"  $(xbacklight -get | xargs printf '%.f')%"
+		"󰃞  $(xbacklight -get | xargs printf '%.f')%"
 
 # change focus
 # bindsym $mod+j focus left
@@ -349,6 +358,7 @@ bindsym $mod+Shift+p exec ~/.config/i3/scripts/power_profiles_menu.fish
 
 # Scratchpad
 bindsym $mod+Shift+F12 move scratchpad
+bindsym Shift+F12 exec --no-startup-id $terminal --class dropdown
 exec --no-startup-id $terminal --class dropdown
 for_window [instance="^dropdown$"] \
     floating enable, border none \
@@ -457,6 +467,9 @@ exec --no-startup-id sleep 2 && nitrogen --restore
 # set powersavings for display:
 exec --no-startup-id xset s 480 dpms 600 600 600
 
+# Right Alt is compose key
+exec --no-startup-id setxkbmap -option compose:ralt
+
 # disable power saving (for example if using xscreensaver)
 #exec --no-startup-id xset -dpms
 
@@ -464,6 +477,9 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 # https://wiki.archlinux.org/title/Session_lock#xautolock
 #exec --no-startup-id xautolock -time 60 -locker "systemctl suspend"
 
+exec --no-startup-id udiskie --automount --smart-tray --file-manager $filemanager --terminal $terminal
+
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/lock.fish
 
 # xscreensaver
 # https://www.jwz.org/xscreensaver
@@ -515,7 +531,7 @@ for_window [class="(?i)meteo"] floating enable
 for_window [class="Meteo" instance="meteo"] floating enable
 for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable
 for_window [class="Lxappearance" instance="lxappearance"] floating enable
-for_window [class="zoom" instance="zoom"] floating enable
+for_window [class="zoom"] floating enable
 
 # set border of floating window
 # for_window [class="urxvt"] border pixel 1
@@ -567,8 +583,8 @@ bar {
 		background         $bg
 		statusline         $fg
 #                          	border 		bg			txt		indicator
-		focused_workspace	$br_black	$br_black	$fg		$magenta
-		active_workspace	$blue   	$white		$bg		$magenta
+		focused_workspace	$br_black   $yellow		$bg		$magenta
+		active_workspace	$br_black	$br_black	$fg		$magenta
 		inactive_workspace	$bg   		$bg			$white	$magenta
 		urgent_workspace	$br_red		$red		$fg		$magenta
 	}

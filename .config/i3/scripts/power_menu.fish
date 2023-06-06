@@ -2,12 +2,12 @@
 
 set name "Session"
 set menu \
-    "  Éteindre" \
-    "  Redémarrer" \
-    "  Veille" \
-    "  Hiberner" \
-    "  Verouiller" \
-    "  Déconnecter"
+    "  Shutdown" \
+    "  Reboot" \
+    "  Sleep" \
+    "  Hibernate" \
+    "  Lock" \
+    "  Logout"
 
 function launch_rofi
     printf "%s\n" $menu |

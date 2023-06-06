@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 14)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 14))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -85,7 +85,7 @@
 ;; Coq keymaps
 (map! :map coq-mode-map
       :nvi "<f3>" 'proof-assert-next-command-interactive
-      :nvi "<f4>" 'company-coq-proof-goto-point
+      :nvi "<f4>" 'proof-goto-point
       :nvi "<f2>" 'proof-undo-last-successful-command)
 
 ;; Coq customization
@@ -93,21 +93,11 @@
 (setq proof-three-window-mode-policy 'hybrid)
 (setq proof-script-fly-past-comments t)
 
-;; ;; Workaround for evil performance bug (see
-;; ;; https://github.com/olivierverdier/spacemacs-coq/issues/6 for details).
-;; ;; Essentially the cursor color is changed rapidly when navigating the proof
-;; ;; in insert mode. This ensures the insert and normal mode colors are the
-;; ;; same, which generally avoids this problem.
-;; (add-hook 'coq-mode-hook
-;;           (lambda ()
-;;             (setq-local
-;;              evil-insert-state-cursor
-;;              (cons
-;;               (car evil-normal-state-cursor)
-;;               (cdr evil-insert-state-cursor)))))
-
 ;; fix Coq mode slowdowns
 (remove-hook 'coq-mode-hook 'dtrt-indent-mode)
+;; Fix for slow startup
+(after! core-editor
+  (add-to-list 'doom-detect-indentation-excluded-modes 'coq-mode))
 
 ;; Keymap for column indicator
 (map! :leader
@@ -142,7 +132,7 @@
 ;; A Camel for Tuareg
 (add-hook 'tuareg-mode-hook #'(lambda() (setq mode-name "🐫")))
 
-;; ;; ACSL mode
+;; ACSL mode
 ;; (use-package! acsl
 ;;   :mode ("\\.c\\'" . acsl-mode))
 
@@ -159,10 +149,15 @@
 (use-package! lustre-mode
   :mode "\\.lus\\'")
 
-;; Tamarin mode config
-(use-package! spthy-mode
-  :mode "\\.spthy\\'")
+;; ;; Tamarin mode config
+;; (use-package! spthy-mode
+;;   :mode "\\.spthy\\'")
 
 ;; CSS mode for Rofi config files
 (use-package! css-mode
   :mode "\\.rasi\\'")
+
+;; Grip
+(setq grip-preview-use-webkit t)
+(setq grip-github-user "Lelio-Brun")
+(setq grip-github-password "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")

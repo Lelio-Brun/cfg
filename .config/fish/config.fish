@@ -11,7 +11,7 @@ abbr -a -g gf  git fetch
 abbr -a -g gpl git pull
 abbr -a -g gp git push
 abbr -a -g ga  git add
-abbr -a -g glg git log --topo-order --abbrev-commit --graph --pretty=oneline
+abbr -a -g glg git log --topo-order --abbrev-commit --graph --color=always --pretty='"format:%C(auto)%h %Cblue%<(10,trunc)%aN%C(auto)%d %s, %Cgreen%ar"'
 abbr -a -g glc git shortlog --summary --numbered
 abbr -a -g gm  git merge
 abbr -a -g gst git status --short
@@ -42,8 +42,12 @@ alias ssh="kitty +kitten ssh"
 
 source ~/.opam/opam-init/init.fish
 
+fish_add_path -p ~/.local/bin/
 fish_add_path -p ~/.emacs.d/bin/
+fish_add_path -p ~/otawa/bin/
 # fish_add_path ~/texlive/2021/bin/x86_64-linux
+# fish_add_path /opt/android-sdk/emulator
+
 
 starship init fish | source
 kitty + complete setup fish | source

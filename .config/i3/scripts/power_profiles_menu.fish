@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 
-set name "Profil"
+set name "Profile"
 set menu \
     "  Performance" \
-    "  Équilibré" \
-    "  Économies"
+    "  Balanced" \
+    "  Saving"
 
 function launch_rofi
     printf "%s\n" $menu |

@@ -55,20 +55,28 @@
 ;; markdown previewer
 (package! vmd-mode)
 
-;; ;; Frama-C ACSL mode
-;; (package! acsl
-;;   :recipe (:local-repo "frama-c"))
-
-;; fix Coq mode slowdowns
-;; (package! dtrt-indent :disable t)
+;; Frama-C ACSL mode
+(package! acsl :recipe
+  (:host nil
+   :repo "https://git.frama-c.com/pub/frama-c"
+   :files ("share/emacs/acsl.el")))
 
 ;; Lustre mode
 (package! lustre-mode :recipe
   (:host github
    :repo "SamuelFountain/lustre-mode"))
 
-;; Tamarin mode
-(package! spthy-mode :recipe
-  (:host github
-   :repo "tamarin-prover/tamarin-prover"
-   :files ("etc/*.el")))
+;; ;; Tamarin mode
+;; (package! spthy-mode :recipe
+;;   (:host github
+;;    :repo "tamarin-prover/tamarin-prover"
+;;    :files ("etc/*.el")))
+
+;; custom PG for Squirrel
+;; (package! proof-general :recipe
+;;   (:local-repo "PG"
+;;    :files (:defaults
+;;            "CHANGES" "AUTHORS" "COPYING" "generic" "images" "lib"
+;;            ("coq" "coq/*.el") "easycrypt" "phox" "qrhl" "pghaskell"
+;;           "pgocaml" "pgshell" "squirrel" "proof-general-pkg.el")))
+
